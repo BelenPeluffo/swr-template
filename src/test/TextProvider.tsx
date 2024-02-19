@@ -10,7 +10,7 @@ import {
 } from "./TextService";
 // import { Mutations, useDataMutation } from "../hooks/useDataMutation";
 import useSWR from "swr";
-import { useDataMutation } from "../hooks/useDataMutation";
+import { Mutations, useDataMutation } from "../hooks/useDataMutation";
 
 export interface Resource {
   id: number;
@@ -19,7 +19,25 @@ export interface Resource {
 }
 
 export const TextContextProvider = ({ children }: { children: ReactNode }) => {
-  const { isFetchSlow, isLoading, error, data } = useDataMutation(API_URL);
+  const TEXT_MUTATIONS: Mutations = {
+    GET: getResource,
+    DELETE: function (data: any): void {
+      throw new Error("Function not implemented.");
+    },
+    PATCH: function (data: any): void {
+      throw new Error("Function not implemented.");
+    },
+    POST: function (data: any): void {
+      throw new Error("Function not implemented.");
+    },
+    PUT: function (data: any): void {
+      throw new Error("Function not implemented.");
+    }
+  };
+  const { isFetchSlow, isLoading, error, data } = useDataMutation(
+    API_URL,
+    TEXT_MUTATIONS
+  );
 
   // const handleGet = async () => {
   //   // const response = await getResource();

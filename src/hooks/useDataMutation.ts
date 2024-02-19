@@ -5,7 +5,7 @@ import { useState } from 'react';
 export type Mutation = 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT';
 
 export interface Mutations {
-  GET: <T>(data) => T;
+  GET: (data) => void;
   DELETE: (data) => void;
   PATCH: (data) => void;
   POST: (data) => void;
@@ -17,11 +17,13 @@ export const useDataMutation = <ResponseType>(
   mutationMethods?: Mutations,
   mutationOptions?: SWRConfiguration,
 ) => {
-  // const { GET, ...updateMethods } = mutationMethods;
+  const { GET, ...updateMethods } = mutationMethods;
   const [isFetchSlow, setIsFetchSlow] = useState(false);
-  const { isLoading, error, data } = useSWR(url, getResource, {
+  const { isLoading, error, data, mutate } = useSWR(url, GET, {
     loadingTimeout: 1500,
     errorRetryCount: 3,
+    revalidateOnReconnect: true,
+    revalidateOnFocus: true,
     onLoadingSlow: () => {
       console.log("Ta lenta la cosa");
       setIsFetchSlow(true);
@@ -30,18 +32,25 @@ export const useDataMutation = <ResponseType>(
 
   // const handleMutation = (mutationType: Mutation, newInput?) => {
   //   try {
-  //     // mutate(updateMethods[mutationType](newInput), mutationOptions[mutationType](newInput));
+  //     mutate(updateMethods[mutationType](newInput), mutationOptions[mutationType](newInput));
   //     // Acá iría un toast o cualquier medio para comunicarle al user que se actualizó la data
   //   } catch (err) {
   //     // Acá iría un toast o cualquier medio para comunicarle al user que se actualizó la data
   //   }
   // };
 
+  console.log('updateMethods?',updateMethods);
+
+  const handleMutation = async (mutationType: Mutation, newInput?) => {
+    await mutate(updateMethods[mutationType](newInput));
+  }
+
   return {
     isLoading,
     error,
     data,
-    // handleMutation,
-    isFetchSlow
+    handleMutation,
+    isFetchSlow,
+    mutate
   };
 };
