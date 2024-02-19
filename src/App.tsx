@@ -5,8 +5,6 @@ import { Resource } from "./test/TextProvider";
 
 function App() {
   const {
-    // apiResponse,
-    // resource,
     data,
     error,
     handleGet,

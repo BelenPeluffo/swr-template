@@ -9,6 +9,7 @@ import {
   putResource,
 } from "./TextService";
 import { Mutations, useDataMutation } from "../hooks/useDataMutation";
+import useSWR from "swr";
 
 export interface Resource {
   id: number;
@@ -17,26 +18,24 @@ export interface Resource {
 }
 
 export const TextContextProvider = ({ children }: { children: ReactNode }) => {
-  // const [resource, setResource] = useState<[]>();
-  // const [apiResponse, setApiResponse] = useState<string>();
-  const TEXT_MUTATIONS: Mutations = {
-    GET: () => getResource(),
-    DELETE: () => deleteResource(1),
-    PATCH: () => patchResource({ id: 1, title: "yeah" }),
-    POST: () =>
-      postResource({
-        title: "string",
-        body: "string",
-        userId: 1,
-      }),
-    PUT: () =>
-      putResource({
-        id: 1,
-        title: "string",
-        body: "string",
-        userId: 1,
-      }),
-  };
+  // const TEXT_MUTATIONS: Mutations = {
+  //   GET: () => getResource(),
+  //   DELETE: () => deleteResource(1),
+  //   PATCH: () => patchResource({ id: 1, title: "yeah" }),
+  //   POST: () =>
+  //     postResource({
+  //       title: "string",
+  //       body: "string",
+  //       userId: 1,
+  //     }),
+  //   PUT: () =>
+  //     putResource({
+  //       id: 1,
+  //       title: "string",
+  //       body: "string",
+  //       userId: 1,
+  //     }),
+  // };
   // const TEXT_OPTIONS: Options = {
   //   // la data que se necesita para la request
   //   GET: {},
@@ -45,11 +44,13 @@ export const TextContextProvider = ({ children }: { children: ReactNode }) => {
   //   POST: {},
   //   PUT: {},
   // };
-  const { isLoading, error, data, handleMutation } = useDataMutation(
-    API_URL,
-    TEXT_MUTATIONS
-    // TEXT_OPTIONS
-  );
+  // const { isLoading, error, data, handleMutation } = useDataMutation(
+  //   API_URL,
+  //   TEXT_MUTATIONS
+  //   // TEXT_OPTIONS
+  // );
+
+  const { isLoading, error, data } = useSWR(API_URL, getResource);
 
   const handleGet = async () => {
     // const response = await getResource();
