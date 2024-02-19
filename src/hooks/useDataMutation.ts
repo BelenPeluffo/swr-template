@@ -5,6 +5,7 @@ import { useState } from 'react';
 export type Mutation = 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT';
 
 export interface Mutations {
+  
   GET: (data) => void;
   DELETE: (data) => void;
   PATCH: (data) => void;
@@ -14,12 +15,12 @@ export interface Mutations {
 
 export const useDataMutation = <ResponseType>(
   url: string,
-  mutationMethods?: Mutations,
+  mutationMethods: Mutations,
   mutationOptions?: SWRConfiguration,
 ) => {
-  const { GET, ...updateMethods } = mutationMethods;
+  // const { GET, ...updateMethods } = mutationMethods;
   const [isFetchSlow, setIsFetchSlow] = useState(false);
-  const { isLoading, error, data, mutate } = useSWR(url, GET, {
+  const { isLoading, error, data, mutate } = useSWR(url, mutationMethods.GET, {
     loadingTimeout: 1500,
     errorRetryCount: 3,
     revalidateOnReconnect: true,
@@ -39,10 +40,10 @@ export const useDataMutation = <ResponseType>(
   //   }
   // };
 
-  console.log('updateMethods?',updateMethods);
+  // console.log('updateMethods?',updateMethods);
 
   const handleMutation = async (mutationType: Mutation, newInput?) => {
-    await mutate(updateMethods[mutationType](newInput));
+    await mutate(mutationMethods[mutationType](newInput));
   }
 
   return {
