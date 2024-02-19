@@ -1,14 +1,14 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { TextContext } from "./TextContext";
 import {
   API_URL,
-  deleteResource,
+  // deleteResource,
   getResource,
-  patchResource,
-  postResource,
-  putResource,
+  //   patchResource,
+  //   postResource,
+  //   putResource,
 } from "./TextService";
-import { Mutations, useDataMutation } from "../hooks/useDataMutation";
+// import { Mutations, useDataMutation } from "../hooks/useDataMutation";
 import useSWR from "swr";
 
 export interface Resource {
@@ -18,6 +18,7 @@ export interface Resource {
 }
 
 export const TextContextProvider = ({ children }: { children: ReactNode }) => {
+  const [isFetchSlow, setIsFetchSlow] = useState(false);
   // const TEXT_MUTATIONS: Mutations = {
   //   GET: () => getResource(),
   //   DELETE: () => deleteResource(1),
@@ -50,45 +51,53 @@ export const TextContextProvider = ({ children }: { children: ReactNode }) => {
   //   // TEXT_OPTIONS
   // );
 
-  const { isLoading, error, data } = useSWR(API_URL, getResource);
+  const { isLoading, error, data } = useSWR(API_URL, getResource, {
+    loadingTimeout: 1500,
+    errorRetryCount: 3,
+    onLoadingSlow: () => {
+      console.log("Ta lenta la cosa");
+      setIsFetchSlow(true);
+    },
+  });
 
   const handleGet = async () => {
     // const response = await getResource();
-    handleMutation("GET");
+    // handleMutation("GET");
     // setResource(data);
   };
 
   const handleDelete = async () => {
-    handleMutation("DELETE");
+    // handleMutation("DELETE");
     // setApiResponse(status === 200 ? "Se eliminó correctamente" : "Algo falló");
   };
 
   const handlePatch = async () => {
-    handleMutation("PATCH", { id: 1, title: "yeah" });
+    // handleMutation("PATCH", { id: 1, title: "yeah" });
     // setApiResponse(status === 200 ? "Se modificó correctamente" : "Algo falló");
   };
 
   const handlePost = async () => {
-    handleMutation("POST", {
-      title: "string",
-      body: "string",
-      userId: 1,
-    });
+    // handleMutation("POST", {
+    // title: "string",
+    // body: "string",
+    // userId: 1,
+    // });
     // setApiResponse(status === 201 ? "Se creó correctamente" : "Algo falló");
   };
 
   const handlePut = async () => {
-    handleMutation("PUT", {
-      id: 1,
-      title: "string",
-      body: "string",
-      userId: 1,
-    });
+    // handleMutation("PUT", {
+    // id: 1,
+    // title: "string",
+    // body: "string",
+    // userId: 1,
+    // });
     // setApiResponse(status === 200 ? "Se modificó correctamente" : "Algo falló");
   };
   return (
     <TextContext.Provider
       value={{
+        isFetchSlow,
         isLoading,
         error,
         data,
