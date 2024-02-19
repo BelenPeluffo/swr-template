@@ -9,7 +9,7 @@ export interface Textstate {
 //   handleDelete: () => Promise<void>;
 //   handlePatch: () => Promise<void>;
 //   handlePost: () => Promise<void>;
-//   handlePut: () => Promise<void>;
+  handlePut: (data) => Promise<void>;
   isLoading: boolean;
   error: any;
 }
@@ -17,9 +17,9 @@ export interface Textstate {
 export const TextContext = createContext<Textstate>({
   data: undefined,
   // apiResponse: undefined,
-  handleGet: function (): Promise<void> {
-    throw new Error("Function not implemented.");
-  },
+//   handleGet: function (): Promise<void> {
+//     throw new Error("Function not implemented.");
+//   },
   handleDelete: function (): Promise<void> {
     throw new Error("Function not implemented.");
   },

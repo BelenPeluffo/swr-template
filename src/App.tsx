@@ -16,9 +16,7 @@ function App() {
     handlePut,
   } = useContext<Textstate>(TextContext);
 
-  useEffect(() => {
-    console.log("isLoading?", isLoading);
-  }, [isLoading]);
+  console.log('data?',data);
 
   return (
     <>
@@ -26,7 +24,16 @@ function App() {
       <button onClick={handleDelete}>DELETE</button>
       <button onClick={handlePatch}>PATCH</button>
       <button onClick={handlePost}>POST</button>
-      <button onClick={handlePut}>PUT</button>
+      <button
+        onClick={() => handlePut({
+          id: 1,
+          title: "string",
+          body: "string",
+          userId: 2,
+        })}
+      >
+        PUT
+      </button>
       {/* {apiResponse && <h6>{apiResponse}</h6>} */}
       {isLoading ? <h6>Cargando...</h6> : null}
       {isFetchSlow && <h6>Tenemos problemas con la carga.</h6>}

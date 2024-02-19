@@ -2,8 +2,12 @@ import { ReactNode, useState } from "react";
 import { TextContext } from "./TextContext";
 import {
   API_URL,
+  deleteResource,
   // deleteResource,
   getResource,
+  patchResource,
+  postResource,
+  putResource,
   //   patchResource,
   //   postResource,
   //   putResource,
@@ -21,20 +25,12 @@ export interface Resource {
 export const TextContextProvider = ({ children }: { children: ReactNode }) => {
   const TEXT_MUTATIONS: Mutations = {
     GET: getResource,
-    DELETE: function (data: any): void {
-      throw new Error("Function not implemented.");
-    },
-    PATCH: function (data: any): void {
-      throw new Error("Function not implemented.");
-    },
-    POST: function (data: any): void {
-      throw new Error("Function not implemented.");
-    },
-    PUT: function (data: any): void {
-      throw new Error("Function not implemented.");
-    }
+    DELETE: deleteResource,
+    PATCH: patchResource,
+    POST: postResource,
+    PUT: putResource
   };
-  const { isFetchSlow, isLoading, error, data } = useDataMutation(
+  const { isFetchSlow, isLoading, error, data, handleMutation } = useDataMutation(
     API_URL,
     TEXT_MUTATIONS
   );
@@ -81,7 +77,7 @@ export const TextContextProvider = ({ children }: { children: ReactNode }) => {
         error,
         data,
         // handleGet,
-        // handlePut,
+        handlePut: (body) => handleMutation("PUT", body),
         // handlePatch,
         // handlePost,
         // handleDelete,
