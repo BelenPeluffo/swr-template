@@ -5,11 +5,11 @@ export interface Textstate {
   isFetchSlow: boolean;
   data: Resource[] | undefined;
   //   apiResponse: string | undefined;
-  handleGet: () => Promise<void>;
-  handleDelete: () => Promise<void>;
-  handlePatch: () => Promise<void>;
-  handlePost: () => Promise<void>;
-  handlePut: () => Promise<void>;
+//   handleGet: () => Promise<void>;
+//   handleDelete: () => Promise<void>;
+//   handlePatch: () => Promise<void>;
+//   handlePost: () => Promise<void>;
+//   handlePut: () => Promise<void>;
   isLoading: boolean;
   error: any;
 }

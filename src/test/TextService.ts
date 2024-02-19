@@ -7,17 +7,18 @@ const HEADERS = {
 };
 export const getResource = async () => {
   // Prueba con delay
-    return new Promise(() => {
-      setTimeout(async () => {
-        // console.log("is it even happening?");
-        // const response = await axios.get(API_URL);
-        // return response.data as Array<Resource>;
-        throw new Error('Uh-oh');
-      }, 4000);
-    });
+  // return new Promise(() => {
+  //   setTimeout(async () => {
+  //     // console.log("is it even happening?");
+  //     // const response = await axios.get(API_URL);
+  //     // return response.data as Array<Resource>;
+  //     // Error con delay
+  //     throw new Error('Uh-oh');
+  //   }, 4000);
+  // });
 
-//   const response = await axios.get(API_URL);
-//   return response.data as Array<Resource>;
+  const response = await axios.get(API_URL);
+  return response.data as Array<Resource>;
 };
 
 export const deleteResource = async (id: number) => {

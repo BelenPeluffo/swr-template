@@ -10,6 +10,7 @@ import {
 } from "./TextService";
 // import { Mutations, useDataMutation } from "../hooks/useDataMutation";
 import useSWR from "swr";
+import { useDataMutation } from "../hooks/useDataMutation";
 
 export interface Resource {
   id: number;
@@ -18,82 +19,42 @@ export interface Resource {
 }
 
 export const TextContextProvider = ({ children }: { children: ReactNode }) => {
-  const [isFetchSlow, setIsFetchSlow] = useState(false);
-  // const TEXT_MUTATIONS: Mutations = {
-  //   GET: () => getResource(),
-  //   DELETE: () => deleteResource(1),
-  //   PATCH: () => patchResource({ id: 1, title: "yeah" }),
-  //   POST: () =>
-  //     postResource({
-  //       title: "string",
-  //       body: "string",
-  //       userId: 1,
-  //     }),
-  //   PUT: () =>
-  //     putResource({
-  //       id: 1,
-  //       title: "string",
-  //       body: "string",
-  //       userId: 1,
-  //     }),
+  const { isFetchSlow, isLoading, error, data } = useDataMutation(API_URL);
+
+  // const handleGet = async () => {
+  //   // const response = await getResource();
+  //   // handleMutation("GET");
+  //   // setResource(data);
   // };
-  // const TEXT_OPTIONS: Options = {
-  //   // la data que se necesita para la request
-  //   GET: {},
-  //   DELETE: {},
-  //   PATCH: {},
-  //   POST: {},
-  //   PUT: {},
+
+  // const handleDelete = async () => {
+  //   // handleMutation("DELETE");
+  //   // setApiResponse(status === 200 ? "Se eliminó correctamente" : "Algo falló");
   // };
-  // const { isLoading, error, data, handleMutation } = useDataMutation(
-  //   API_URL,
-  //   TEXT_MUTATIONS
-  //   // TEXT_OPTIONS
-  // );
 
-  const { isLoading, error, data } = useSWR(API_URL, getResource, {
-    loadingTimeout: 1500,
-    errorRetryCount: 3,
-    onLoadingSlow: () => {
-      console.log("Ta lenta la cosa");
-      setIsFetchSlow(true);
-    },
-  });
+  // const handlePatch = async () => {
+  //   // handleMutation("PATCH", { id: 1, title: "yeah" });
+  //   // setApiResponse(status === 200 ? "Se modificó correctamente" : "Algo falló");
+  // };
 
-  const handleGet = async () => {
-    // const response = await getResource();
-    // handleMutation("GET");
-    // setResource(data);
-  };
+  // const handlePost = async () => {
+  //   // handleMutation("POST", {
+  //   // title: "string",
+  //   // body: "string",
+  //   // userId: 1,
+  //   // });
+  //   // setApiResponse(status === 201 ? "Se creó correctamente" : "Algo falló");
+  // };
 
-  const handleDelete = async () => {
-    // handleMutation("DELETE");
-    // setApiResponse(status === 200 ? "Se eliminó correctamente" : "Algo falló");
-  };
-
-  const handlePatch = async () => {
-    // handleMutation("PATCH", { id: 1, title: "yeah" });
-    // setApiResponse(status === 200 ? "Se modificó correctamente" : "Algo falló");
-  };
-
-  const handlePost = async () => {
-    // handleMutation("POST", {
-    // title: "string",
-    // body: "string",
-    // userId: 1,
-    // });
-    // setApiResponse(status === 201 ? "Se creó correctamente" : "Algo falló");
-  };
-
-  const handlePut = async () => {
-    // handleMutation("PUT", {
-    // id: 1,
-    // title: "string",
-    // body: "string",
-    // userId: 1,
-    // });
-    // setApiResponse(status === 200 ? "Se modificó correctamente" : "Algo falló");
-  };
+  // const handlePut = async () => {
+  //   // handleMutation("PUT", {
+  //   // id: 1,
+  //   // title: "string",
+  //   // body: "string",
+  //   // userId: 1,
+  //   // });
+  //   // setApiResponse(status === 200 ? "Se modificó correctamente" : "Algo falló");
+  // };
   return (
     <TextContext.Provider
       value={{
@@ -101,11 +62,11 @@ export const TextContextProvider = ({ children }: { children: ReactNode }) => {
         isLoading,
         error,
         data,
-        handleGet,
-        handlePut,
-        handlePatch,
-        handlePost,
-        handleDelete,
+        // handleGet,
+        // handlePut,
+        // handlePatch,
+        // handlePost,
+        // handleDelete,
       }}
     >
       {children}
