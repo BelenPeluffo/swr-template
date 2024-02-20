@@ -1,27 +1,31 @@
 {
   "posts": [
     {
-      "title": "Soyeon",
-      "body": "Te amooo",
-      "userId": 2,
-      "id": "1"
-    },
-    {
       "id": "2",
       "title": "another title",
       "views": 200
+    },
+    {
+      "id": "57cf",
+      "title": "Soyeon",
+      "body": "Te amo"
+    },
+    {
+      "id": "9e10",
+      "title": "Soyeon",
+      "body": "Te amo"
     }
   ],
   "comments": [
     {
       "id": "1",
       "text": "a comment about post 1",
-      "postId": "1"
+      "postId": null
     },
     {
       "id": "2",
       "text": "another comment about post 1",
-      "postId": "1"
+      "postId": null
     }
   ],
   "profile": {

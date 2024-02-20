@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import "./App.css";
 import { TextContext, Textstate } from "./test/TextContext";
 import { Resource } from "./test/TextProvider";
@@ -9,7 +9,6 @@ function App() {
     isFetchSlow,
     isLoading,
     error,
-    // handleGet,
     handleDelete,
     handlePatch,
     handlePost,
@@ -20,7 +19,6 @@ function App() {
 
   return (
     <>
-      {/* <button onClick={handleGet}>GET</button> */}
       <button onClick={() => handleDelete(1)}>DELETE</button>
       <button
         onClick={() =>
@@ -36,8 +34,8 @@ function App() {
       <button
         onClick={() =>
           handlePost({
-            title: "string",
-            body: "string",
+            title: "Soyeon",
+            body: "Te amo",
           })
         }
       >
@@ -55,10 +53,11 @@ function App() {
       >
         PUT
       </button>
-      {/* {apiResponse && <h6>{apiResponse}</h6>} */}
       {isLoading ? <h6>Cargando...</h6> : null}
       {isFetchSlow && <h6>Tenemos problemas con la carga.</h6>}
-      {data && data.map((item: Resource) => <h6>{item.title}</h6>)}
+      {data && Array.isArray(data)
+        ? data.map((item: Resource) => <h6>{item.title}</h6>)
+        : null}
       {error && <h6>Error: {error.message}</h6>}
     </>
   );
