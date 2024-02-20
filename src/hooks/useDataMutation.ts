@@ -43,6 +43,5 @@ export const useDataMutation = <ResponseType>(
     data,
     handleMutation,
     isFetchSlow,
-    mutate,
   };
 };
