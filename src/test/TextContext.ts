@@ -4,26 +4,26 @@ import { Resource } from "./TextProvider";
 export interface Textstate {
   isFetchSlow: boolean;
   data: Resource[] | undefined;
-  handleDelete: (data) => Promise<Resource>;
-  handlePatch: (data) => Promise<Resource>;
-  handlePost: (data) => Promise<Resource>;
-  handlePut: (data) => Promise<Resource>;
+  handleDelete: (data) => Promise<void>;
+  handlePatch: (data) => Promise<void>;
+  handlePost: (data) => Promise<void>;
+  handlePut: (data) => Promise<void>;
   isLoading: boolean;
   error: any;
 }
 
 export const TextContext = createContext<Textstate>({
   data: undefined,
-  handleDelete: function (): Promise<Resource> {
+  handleDelete: function (): Promise<void> {
     throw new Error("Function not implemented.");
   },
-  handlePatch: function (): Promise<Resource> {
+  handlePatch: function (): Promise<void> {
     throw new Error("Function not implemented.");
   },
-  handlePost: function (): Promise<Resource> {
+  handlePost: function (): Promise<void> {
     throw new Error("Function not implemented.");
   },
-  handlePut: function (): Promise<Resource> {
+  handlePut: function (): Promise<void> {
     throw new Error("Function not implemented.");
   },
   isLoading: false,
