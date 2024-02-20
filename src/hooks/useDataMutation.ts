@@ -3,17 +3,17 @@ import { useState } from "react";
 
 export type Mutation = "DELETE" | "GET" | "PATCH" | "POST" | "PUT";
 
-export interface Mutations {
-  GET: (data) => void;
-  DELETE: (data) => void;
-  PATCH: (data) => void;
-  POST: (data) => void;
-  PUT: (data) => void;
+export interface Mutations<ResponseType> {
+  GET: (data) => Promise<ResponseType[]>;
+  DELETE: (data) => Promise<ResponseType>;
+  PATCH: (data) => Promise<ResponseType>;
+  POST: (data) => Promise<ResponseType>;
+  PUT: (data) => Promise<ResponseType>;
 }
 
-export const useDataMutation = (
+export const useDataMutation = <ResponseType>(
   url: string,
-  mutationMethods: Mutations,
+  mutationMethods: Mutations<ResponseType>,
   mutationOptions?: SWRConfiguration
 ) => {
   const [isFetchSlow, setIsFetchSlow] = useState(false);
