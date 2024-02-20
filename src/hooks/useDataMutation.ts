@@ -1,4 +1,4 @@
-import useSWR, { SWRConfiguration } from "swr";
+import useSWR, { SWRConfiguration, mutate as globalMutate } from "swr";
 import { useState } from "react";
 
 export type Mutation = "DELETE" | "GET" | "PATCH" | "POST" | "PUT";
@@ -32,9 +32,20 @@ export const useDataMutation = <ResponseType>(
     }
   );
 
-  const handleMutation = async (mutationType: Mutation, newInput?) => {
+  const handleMutation = async (
+    mutationType: Mutation,
+    newInput,
+    anotherEndpoint?: string
+  ) => {
     console.log(`mutationMethods[${mutationType}]`);
-    await mutate(mutationMethods[mutationType](newInput) as Promise<ResponseType[]>);
+    anotherEndpoint
+      ? await globalMutate(
+          anotherEndpoint,
+          mutationMethods[mutationType](newInput) as Promise<ResponseType[]>
+        )
+      : await mutate(
+          mutationMethods[mutationType](newInput) as Promise<ResponseType[]>
+        );
   };
 
   return {
