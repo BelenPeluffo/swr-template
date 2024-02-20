@@ -29,6 +29,7 @@ export const useDataMutation = (
   });
 
   const handleMutation = async (mutationType: Mutation, newInput?) => {
+    console.log(`mutationMethods[${mutationType}]`);
     await mutate(mutationMethods[mutationType](newInput));
   }
 

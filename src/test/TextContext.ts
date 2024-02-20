@@ -6,8 +6,8 @@ export interface Textstate {
   data: Resource[] | undefined;
   //   apiResponse: string | undefined;
 //   handleGet: () => Promise<void>;
-//   handleDelete: () => Promise<void>;
-//   handlePatch: () => Promise<void>;
+  handleDelete: (data) => Promise<void>;
+  handlePatch: (data) => Promise<void>;
   handlePost: (data) => Promise<void>;
   handlePut: (data) => Promise<void>;
   isLoading: boolean;

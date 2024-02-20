@@ -23,6 +23,7 @@ export const getResource = async () => {
 
 export const deleteResource = async (id: number) => {
   const response = await axios.delete(`${API_URL}/${id}`);
+  console.log('DELETE RESPONSE?', response);
   return response;
 };
 
@@ -31,6 +32,7 @@ export const patchResource = async (body: { id: number; title: string }) => {
   const response = await axios.patch(`${API_URL}/${id}`, rest, {
     headers: HEADERS,
   });
+  console.log('PATCH RESPONSE?', response);
   return response;
 };
 
@@ -40,6 +42,7 @@ export const postResource = async (body: {
   userId: number;
 }) => {
   const response = await axios.post(API_URL, body, { headers: HEADERS });
+  console.log('POST RESPONSE?', response);
   return response;
 };
 
@@ -53,5 +56,6 @@ export const putResource = async (body: {
   const response = await axios.put(`${API_URL}/${id}`, rest, {
     headers: HEADERS,
   });
+  console.log('PUT RESPONSE?', response);
   return response;
 };

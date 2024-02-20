@@ -76,9 +76,9 @@ export const TextContextProvider = ({ children }: { children: ReactNode }) => {
         data,
         // handleGet,
         handlePut: (body) => handleMutation("PUT", body),
-        // handlePatch,
+        handlePatch: (body) => handleMutation("PATCH", body),
         handlePost: (body) => handleMutation("POST", body),
-        // handleDelete,
+        handleDelete: (id) => handleMutation("DELETE", id),
       }}
     >
       {children}

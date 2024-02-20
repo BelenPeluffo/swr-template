@@ -16,21 +16,42 @@ function App() {
     handlePut,
   } = useContext<Textstate>(TextContext);
 
-  console.log('data?',data);
+  console.log("data?", data);
 
   return (
     <>
       {/* <button onClick={handleGet}>GET</button> */}
-      <button onClick={handleDelete}>DELETE</button>
-      <button onClick={handlePatch}>PATCH</button>
-      <button onClick={handlePost}>POST</button>
+      <button onClick={() => handleDelete(1)}>DELETE</button>
       <button
-        onClick={() => handlePut({
-          id: 1,
-          title: "string",
-          body: "string",
-          userId: 2,
-        })}
+        onClick={() =>
+          handlePatch({
+            id: 1,
+            title: "Soyeon",
+            body: "Te amooo",
+          })
+        }
+      >
+        PATCH
+      </button>
+      <button
+        onClick={() =>
+          handlePost({
+            title: "string",
+            body: "string",
+          })
+        }
+      >
+        POST
+      </button>
+      <button
+        onClick={() =>
+          handlePut({
+            id: 1,
+            title: "string",
+            body: "string",
+            userId: 2,
+          })
+        }
       >
         PUT
       </button>
