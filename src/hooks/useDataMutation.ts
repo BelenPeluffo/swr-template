@@ -17,7 +17,7 @@ export const useDataMutation = <ResponseType>(
   mutationOptions?: SWRConfiguration
 ) => {
   const [isFetchSlow, setIsFetchSlow] = useState(false);
-  const { isLoading, error, data, mutate } = useSWR(
+  const { isLoading, error, data, mutate } = useSWR<ResponseType[]>(
     url,
     mutationMethods.GET,
     mutationOptions ?? {
@@ -34,7 +34,7 @@ export const useDataMutation = <ResponseType>(
 
   const handleMutation = async (mutationType: Mutation, newInput?) => {
     console.log(`mutationMethods[${mutationType}]`);
-    await mutate(mutationMethods[mutationType](newInput));
+    await mutate(mutationMethods[mutationType](newInput) as Promise<ResponseType[]>);
   };
 
   return {
