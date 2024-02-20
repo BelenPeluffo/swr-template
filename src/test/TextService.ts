@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Resource } from "./TextProvider";
 
-export const API_URL = "https://jsonplaceholder.typicode.com/posts";
+export const API_URL = "http://localhost:3000/posts";
 const HEADERS = {
   "Content-type": "application/json; charset=UTF-8",
 };

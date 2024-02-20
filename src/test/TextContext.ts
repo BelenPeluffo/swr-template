@@ -8,7 +8,7 @@ export interface Textstate {
 //   handleGet: () => Promise<void>;
 //   handleDelete: () => Promise<void>;
 //   handlePatch: () => Promise<void>;
-//   handlePost: () => Promise<void>;
+  handlePost: (data) => Promise<void>;
   handlePut: (data) => Promise<void>;
   isLoading: boolean;
   error: any;

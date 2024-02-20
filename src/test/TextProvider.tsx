@@ -28,12 +28,10 @@ export const TextContextProvider = ({ children }: { children: ReactNode }) => {
     DELETE: deleteResource,
     PATCH: patchResource,
     POST: postResource,
-    PUT: putResource
+    PUT: putResource,
   };
-  const { isFetchSlow, isLoading, error, data, handleMutation } = useDataMutation(
-    API_URL,
-    TEXT_MUTATIONS
-  );
+  const { isFetchSlow, isLoading, error, data, handleMutation } =
+    useDataMutation(API_URL, TEXT_MUTATIONS);
 
   // const handleGet = async () => {
   //   // const response = await getResource();
@@ -79,7 +77,7 @@ export const TextContextProvider = ({ children }: { children: ReactNode }) => {
         // handleGet,
         handlePut: (body) => handleMutation("PUT", body),
         // handlePatch,
-        // handlePost,
+        handlePost: (body) => handleMutation("POST", body),
         // handleDelete,
       }}
     >
